@@ -12,4 +12,6 @@ require 'survey/engine'
 require 'survey/version'
 require 'survey/active_record'
 
-ActiveRecord::Base.send(:include, Survey::ActiveRecord)
+# Leave ActiveRecord::Base unloaded until the app's initializers have run,
+# so their Active Record settings reach it.
+ActiveSupport.on_load(:active_record) { include Survey::ActiveRecord }
